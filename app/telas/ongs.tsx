@@ -16,29 +16,29 @@ type Props = BottomTabScreenProps<TabParamList, 'ONGs'>;
 const ongs = [
     {
         id: '1',
-        titulo: 'PetAdopt',
-        descricao: 'ONG dedicada à adoção de animais abandonados.',
+        nome: '🐾 PetAdopt',
+        causa: 'ONG dedicada à adoção de animais abandonados.',
         vagas: 12,
-        categoria: 'ongs',
+        categoria: 'ONGs',
     },
     {
         id: '2',
-        titulo: 'VerdeCidade',
-        descricao: 'ONG dedicada ao cuidado e vonlutaridade de terrenos abandonados.',
+        nome: '🌱 VerdeCidade',
+        causa: 'ONG dedicada ao cuidado e vonlutaridade de terrenos abandonados.',
         vagas: 8,
-        categoria: 'ongs',
+        categoria: 'ONGs',
     },
     {
         id: '3',
-        titulo: 'Educar para o Futuro',
-        descricao: 'ONG focada em educação para crianças em situação de vulnerabilidade.',
+        nome: '📖 Educar para o Futuro',
+        causa: 'ONG focada em educação para crianças em situação de vulnerabilidade.',
         vagas: 5,
-        categoria: 'ongs',
+        categoria: 'ONGs',
     }
 ]
 
 const categoriaColors: Record<string, string> = {
-    ongs: '#ff0000',
+    ONGs: '#ff0000',
 };
 
 export default function ONGs({ }: Props) {
@@ -46,7 +46,7 @@ export default function ONGs({ }: Props) {
 
     const filtradas = ongs.filter(
         (o) =>
-            o.titulo.toLowerCase().includes(busca.toLowerCase()) ||
+            o.nome.toLowerCase().includes(busca.toLowerCase()) ||
             o.categoria.toLowerCase().includes(busca.toLowerCase())
     );
 
@@ -89,7 +89,8 @@ export default function ONGs({ }: Props) {
                             <Text style={styles.vagas}>🙋 {item.vagas} vagas</Text>
                         </View>
 
-                        <Text style={styles.cardTitulo}>{item.titulo}</Text>
+                        <Text style={styles.cardTitulo}>{item.nome}</Text>
+                        <Text style={styles.cardCausa}>{item.causa}</Text>
 
                         <TouchableOpacity style={styles.inscreverBtn}>
                             <Text style={styles.inscreverText}>Quero Participar</Text>
@@ -111,18 +112,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingTop: 52,
     },
-    pageTitle: {
+    pageTitle: { // Titulo da página
         fontSize: 26,
         fontWeight: '800',
         color: '#003b8f',
     },
-    pageSubtitle: {
+    pageSubtitle: { // Subtitulo da página
         fontSize: 14,
         color: '#5580a4',
         marginBottom: 16,
         marginTop: 2,
     },
-    searchInput: {
+    searchInput: { // Input de busca(dentro)
         backgroundColor: '#fff',
         borderRadius: 12,
         paddingHorizontal: 14,
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         color: '#0b2233',
     },
-    card: {
+    card: { // Card de cada ONG
         backgroundColor: '#fff',
         borderRadius: 16,
         padding: 16,
@@ -142,52 +143,57 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 3,
     },
-    cardHeader: {
+    cardHeader: { // Cabeçalho do card (categoria + vagas)
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 8,
     },
-    categoriaBadge: {
+    categoriaBadge: { // Badge da categoria
         paddingHorizontal: 10,
         paddingVertical: 3,
         borderRadius: 20,
     },
-    categoriaText: {
+    categoriaText: { // Texto da categoria
         fontSize: 12,
         fontWeight: '700',
     },
-    vagas: {
+    vagas: { // Texto das vagas disponíveis
         fontSize: 12,
         color: '#5580a4',
         fontWeight: '500',
     },
-    cardTitulo: {
-        fontSize: 16,
+    cardTitulo: { // Título da ONG
+        fontSize: 19,
         fontWeight: '700',
         color: '#0b2233',
         marginBottom: 8,
     },
-    cardInfo: {
+    cardCausa: { // Causa da ONG
+        fontSize: 14,
+        color: '#5580a4',
+        marginBottom: 12,
+    },
+    cardInfo: { // Informações adicionais do card
         gap: 4,
         marginBottom: 12,
     },
-    cardInfoText: {
+    cardInfoText: { // Texto das informações adicionais
         fontSize: 13,
         color: '#5580a4',
     },
-    inscreverBtn: {
+    inscreverBtn: { // Botão de inscrição
         backgroundColor: '#005eff',
         paddingVertical: 10,
         borderRadius: 10,
         alignItems: 'center',
     },
-    inscreverText: {
+    inscreverText: { // Texto do botão de inscrição
         color: '#fff',
         fontWeight: '700',
         fontSize: 14,
     },
-    emptyText: {
+    emptyText: { // Texto exibido quando não há ONGs encontradas
         textAlign: 'center',
         color: '#8aabcc',
         marginTop: 40,
