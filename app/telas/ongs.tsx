@@ -1,19 +1,20 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+    ActivityIndicator,
     FlatList,
     StyleSheet,
     Text,
     TextInput,
-    TouchableOpacity,
     View,
 } from 'react-native';
+import ONGCard, { ONGItem } from '../components/ONGCard'; // Importação do componente criado acima
 import { TabParamList } from '../types/navigation';
 
 type Props = BottomTabScreenProps<TabParamList, 'ONGs'>;
 
-// Dados simulados para ONGs
-const ongs = [
+// Lista de dados simulados (utilizando a tipagem do componente)
+const ongs: ONGItem[] = [
     {
         id: '1',
         nome: '🐾 PetAdopt',
@@ -35,26 +36,31 @@ const ongs = [
         vagas: 5,
         categoria: 'ONGs',
     }
-]
-
-const categoriaColors: Record<string, string> = {
-    ONGs: '#ff0000',
-};
+];
 
 export default function ONGs({ }: Props) {
+    const [loading, setLoading] = useState(true);
     const [busca, setBusca] = useState('');
 
+    // Filtro de busca por nome ou categoria
     const filtradas = ongs.filter(
         (o) =>
             o.nome.toLowerCase().includes(busca.toLowerCase()) ||
             o.categoria.toLowerCase().includes(busca.toLowerCase())
     );
 
+    useEffect(() => {
+        setTimeout(() => setLoading(false), 2000);
+      }, []);
+    
+       if (loading) return <ActivityIndicator size="large" color="#277fae" style={{flex: 1}} />;
     return (
         <View style={styles.container}>
+            {/* Títulos da Página */}
             <Text style={styles.pageTitle}>ONGs</Text>
             <Text style={styles.pageSubtitle}>Descubra as ONGs ativas e suas causas.</Text>
 
+            {/* Input de Busca */}
             <TextInput
                 style={styles.searchInput}
                 placeholder="🔍  Buscar ONGs..."
@@ -63,40 +69,13 @@ export default function ONGs({ }: Props) {
                 placeholderTextColor="#8aabcc"
             />
 
+            {/* Lista Principal */}
             <FlatList
                 data={filtradas}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ gap: 12, paddingBottom: 20 }}
-                renderItem={({ item }) => (
-                    <View style={styles.card}>
-                        <View style={styles.cardHeader}>
-                            <View
-                                style={[
-                                    styles.categoriaBadge,
-                                    { backgroundColor: (categoriaColors[item.categoria] || '#888') + '22' },
-                                ]}
-                            >
-                                <Text
-                                    style={[
-                                        styles.categoriaText,
-                                        { color: categoriaColors[item.categoria] || '#888' },
-                                    ]}
-                                >
-                                    {item.categoria}
-                                </Text>
-                            </View>
-                            <Text style={styles.vagas}>🙋 {item.vagas} vagas</Text>
-                        </View>
-
-                        <Text style={styles.cardTitulo}>{item.nome}</Text>
-                        <Text style={styles.cardCausa}>{item.causa}</Text>
-
-                        <TouchableOpacity style={styles.inscreverBtn}>
-                            <Text style={styles.inscreverText}>Quero Participar</Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
+                renderItem={({ item }) => <ONGCard item={item} />} // Renderizando o componente isolado
                 ListEmptyComponent={
                     <Text style={styles.emptyText}>Nenhuma ONG encontrada.</Text>
                 }
@@ -112,18 +91,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingTop: 52,
     },
-    pageTitle: { // Titulo da página
+    pageTitle: {
         fontSize: 26,
         fontWeight: '800',
         color: '#003b8f',
     },
-    pageSubtitle: { // Subtitulo da página
+    pageSubtitle: {
         fontSize: 14,
         color: '#5580a4',
         marginBottom: 16,
         marginTop: 2,
     },
-    searchInput: { // Input de busca(dentro)
+    searchInput: {
         backgroundColor: '#fff',
         borderRadius: 12,
         paddingHorizontal: 14,
@@ -134,66 +113,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         color: '#0b2233',
     },
-    card: { // Card de cada ONG
-        backgroundColor: '#fff',
-        borderRadius: 16,
-        padding: 16,
-        shadowColor: '#005eff',
-        shadowOpacity: 0.07,
-        shadowRadius: 8,
-        elevation: 3,
-    },
-    cardHeader: { // Cabeçalho do card (categoria + vagas)
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 8,
-    },
-    categoriaBadge: { // Badge da categoria
-        paddingHorizontal: 10,
-        paddingVertical: 3,
-        borderRadius: 20,
-    },
-    categoriaText: { // Texto da categoria
-        fontSize: 12,
-        fontWeight: '700',
-    },
-    vagas: { // Texto das vagas disponíveis
-        fontSize: 12,
-        color: '#5580a4',
-        fontWeight: '500',
-    },
-    cardTitulo: { // Título da ONG
-        fontSize: 19,
-        fontWeight: '700',
-        color: '#0b2233',
-        marginBottom: 8,
-    },
-    cardCausa: { // Causa da ONG
-        fontSize: 14,
-        color: '#5580a4',
-        marginBottom: 12,
-    },
-    cardInfo: { // Informações adicionais do card
-        gap: 4,
-        marginBottom: 12,
-    },
-    cardInfoText: { // Texto das informações adicionais
-        fontSize: 13,
-        color: '#5580a4',
-    },
-    inscreverBtn: { // Botão de inscrição
-        backgroundColor: '#005eff',
-        paddingVertical: 10,
-        borderRadius: 10,
-        alignItems: 'center',
-    },
-    inscreverText: { // Texto do botão de inscrição
-        color: '#fff',
-        fontWeight: '700',
-        fontSize: 14,
-    },
-    emptyText: { // Texto exibido quando não há ONGs encontradas
+    emptyText: {
         textAlign: 'center',
         color: '#8aabcc',
         marginTop: 40,
