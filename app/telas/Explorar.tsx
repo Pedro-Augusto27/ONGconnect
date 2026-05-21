@@ -1,6 +1,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   StyleSheet,
   Text,
@@ -65,13 +66,22 @@ const categoriaColors: Record<string, string> = {
 };
 
 export default function Explorar({ }: Props) {
+  const [loading, setLoading] = useState(true); // Simula carregamento de dados
   const [busca, setBusca] = useState('');
 
+  // Filtra as oportunidades com base na busca por título ou categoria
   const filtradas = oportunidades.filter(
     (o) =>
       o.titulo.toLowerCase().includes(busca.toLowerCase()) ||
       o.categoria.toLowerCase().includes(busca.toLowerCase())
   );
+
+  // Simula um carregamento de 2 segundos para mostrar o indicador de atividade
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 2000);
+  }, []);
+
+   if (loading) return <ActivityIndicator size="large" color="#277fae" style={{flex: 1}} />;
 
   return (
     <View style={styles.container}>
@@ -139,18 +149,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 52,
   },
-  pageTitle: {
+  pageTitle: { // Titulo da página
     fontSize: 26,
     fontWeight: '800',
     color: '#003b8f',
   },
-  pageSubtitle: {
+  pageSubtitle: { // Subtitulo da página
     fontSize: 14,
     color: '#5580a4',
     marginBottom: 16,
     marginTop: 2,
   },
-  searchInput: {
+  searchInput: { // Input de busca(dentro)
     backgroundColor: '#fff',
     borderRadius: 12,
     paddingHorizontal: 14,
@@ -161,7 +171,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     color: '#0b2233',
   },
-  card: {
+  card: { // Card de cada oportunidade
     backgroundColor: '#fff',
     borderRadius: 16,
     padding: 16,
@@ -170,52 +180,52 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 3,
   },
-  cardHeader: {
+  cardHeader: { // Cabeçalho do card (categoria + vagas)
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 8,
   },
-  categoriaBadge: {
+  categoriaBadge: { // Badge da categoria
     paddingHorizontal: 10,
     paddingVertical: 3,
     borderRadius: 20,
   },
-  categoriaText: {
+  categoriaText: { // Texto da categoria
     fontSize: 12,
     fontWeight: '700',
   },
-  vagas: {
+  vagas: { // Texto das vagas disponíveis
     fontSize: 12,
     color: '#5580a4',
     fontWeight: '500',
   },
-  cardTitulo: {
-    fontSize: 16,
+  cardTitulo: { // Título da oportunidade
+    fontSize: 19,
     fontWeight: '700',
     color: '#0b2233',
     marginBottom: 8,
   },
-  cardInfo: {
+  cardInfo: { // Informações adicionais do card
     gap: 4,
     marginBottom: 12,
   },
-  cardInfoText: {
+  cardInfoText: { // Texto das informações adicionais
     fontSize: 13,
     color: '#5580a4',
   },
-  inscreverBtn: {
+  inscreverBtn: { // Botão de inscrição
     backgroundColor: '#005eff',
     paddingVertical: 10,
     borderRadius: 10,
     alignItems: 'center',
   },
-  inscreverText: {
+  inscreverText: { // Texto do botão de inscrição
     color: '#fff',
     fontWeight: '700',
     fontSize: 14,
   },
-  emptyText: {
+  emptyText: { // Texto exibido quando não há oportunidades encontradas
     textAlign: 'center',
     color: '#8aabcc',
     marginTop: 40,
