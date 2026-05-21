@@ -2,13 +2,13 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import {
-    Alert,
-    Image,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 import { RootStackParamList } from '../types/navigation';
@@ -66,7 +66,7 @@ export default function LoginTelas() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#6ce9ffcd',
+    backgroundColor: '#f3fbff',
     paddingHorizontal: 24,
     paddingTop: 36,
     paddingBottom: 24,

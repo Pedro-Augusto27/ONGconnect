@@ -17,6 +17,7 @@ export type TabParamList = {
     voluntarioId: number;
   };
   Explorar: undefined;
+  ONGs: undefined;
   Perfil: {
     userName: string;
     voluntarioId: number;
@@ -29,4 +30,5 @@ export type AppProps = NativeStackScreenProps<RootStackParamList, 'App'>;
 
 export type DashboardTabProps = BottomTabScreenProps<TabParamList, 'Dashboard'>;
 export type ExplorarTabProps = BottomTabScreenProps<TabParamList, 'Explorar'>;
+export type ONGsTabProps = BottomTabScreenProps<TabParamList, 'ONGs'>;
 export type PerfilTabProps = BottomTabScreenProps<TabParamList, 'Perfil'>;

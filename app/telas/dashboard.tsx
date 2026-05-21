@@ -17,7 +17,7 @@ type Props = BottomTabScreenProps<TabParamList, 'Dashboard'>;
 
 // O seu novo array adaptado
 const cards = [
-  { titulo: 'Total de Atividades', valor: '5', emoji: '🗒️' },
+  { titulo: 'Total de Atividades', valor: '5', emoji: '📝' },
   { titulo: 'ONGs', valor: '3', emoji: '🏠' },
   { titulo: 'Eventos', valor: '1', emoji: '🎈' },
   { titulo: 'Número de Voluntários', valor: '12', emoji: '👤' },

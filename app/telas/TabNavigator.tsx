@@ -6,6 +6,7 @@ import { Text } from 'react-native';
 import { RootStackParamList, TabParamList } from '../types/navigation';
 import Dashboard from './dashboard';
 import Explorar from './Explorar';
+import ONGs from './ongs';
 import Perfil from './Perfil';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'App'>;
@@ -17,7 +18,9 @@ function TabIcon({ label, focused }: { label: string; focused: boolean }) {
   const icons: Record<string, string> = {
     Dashboard: '🏠',
     Explorar: '🔍',
+    ONGs: '🏢',
     Perfil: '👤',
+    
   };
   return (
     <Text style={{ fontSize: 20, opacity: focused ? 1 : 0.5 }}>
@@ -52,17 +55,26 @@ export default function TabNavigator({ route }: Props) {
         },
       })}
     >
+      {/* Tela de Dashboard */}
       <Tab.Screen
         name="Dashboard"
         component={Dashboard}
         initialParams={{ userName, voluntarioId }}
         options={{ title: 'Início' }}
       />
+      {/* Tela de Explorar */}
       <Tab.Screen
         name="Explorar"
         component={Explorar}
         options={{ title: 'Explorar' }}
       />
+      {/* Tela de ONGs */}
+       <Tab.Screen
+        name="ONGs"
+        component={ONGs}
+        options={{ title: 'ONGs' }}
+      />
+      {/* Tela de Perfil */}
       <Tab.Screen
         name="Perfil"
         component={Perfil}

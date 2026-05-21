@@ -1,17 +1,18 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import React, { useState } from 'react';
 import {
-    FlatList,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { TabParamList } from '../types/navigation';
 
 type Props = BottomTabScreenProps<TabParamList, 'Explorar'>;
 
+// Dados simulados para oportunidades de voluntariado
 const oportunidades = [
   {
     id: '1',
@@ -63,7 +64,7 @@ const categoriaColors: Record<string, string> = {
   Cultura: '#af52de',
 };
 
-export default function Explorar({}: Props) {
+export default function Explorar({ }: Props) {
   const [busca, setBusca] = useState('');
 
   const filtradas = oportunidades.filter(
@@ -75,7 +76,7 @@ export default function Explorar({}: Props) {
   return (
     <View style={styles.container}>
       <Text style={styles.pageTitle}>Explorar</Text>
-      <Text style={styles.pageSubtitle}>Encontre oportunidades de voluntariado</Text>
+      <Text style={styles.pageSubtitle}>Encontre oportunidades de voluntariado.</Text>
 
       <TextInput
         style={styles.searchInput}
