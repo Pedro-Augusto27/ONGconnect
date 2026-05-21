@@ -1,24 +1,9 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+// _layout.tsx não é necessário ao usar React Navigation com createNativeStackNavigator.
+// O ponto de entrada é index.tsx que já envolve tudo com <NavigationContainer>.
+//
+// Se o seu projeto usa Expo Router, substitua index.tsx pelo conteúdo abaixo e
+// configure as rotas via estrutura de pastas.
+//
+// Por ora, este arquivo pode ser mantido vazio ou deletado.
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
-}
+export { };
